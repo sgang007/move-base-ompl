@@ -37,7 +37,7 @@ install: # Use this to install any prerequisites or dependencies necessary to ru
   - cd build/Release
   - cmake ../..
   - make -j4
-  - make install
+  - sudo make install
   - cd ~/ros/ws_ros_controls/src
   - wstool init .
   # Download non-debian stuff
