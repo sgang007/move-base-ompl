@@ -10,8 +10,7 @@ find_package(catkin REQUIRED
     nav_msgs
     pluginlib
     roscpp
-    tf
-    base_local_planner
+    tf    
 )
 
 find_package(OMPL REQUIRED)
