@@ -1,10 +1,13 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of ff6c959... 	modified:   .travis.yml
 language:
   - cpp
-  - python
-python:
-  - "2.7"
+
 compiler:
   - gcc
+<<<<<<< HEAD
 before_install:
   # Define some config vars
   - export ROS_DISTRO=hydro
@@ -28,3 +31,35 @@ install:
 script:
   # Run tests
   - pushd build_isolated/rtt && make check && popd
+=======
+
+before_install:
+  - export CI_SOURCE_PATH=$(pwd)
+  - lsb_release -a
+  - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu precise main" > /etc/apt/sources.list.d/ros-latest.list'
+  - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+  - sudo apt-get update -qq
+  - sudo apt-get install ros-hydro-ros-base
+  - sudo apt-get install ros-hydro-move-base ros-hydro-ompl
+  - sudo apt-get install python-catkin-pkg python-empy python-rospkg
+  - pip install catkin_pkg
+  - pip install rospkg
+  - sudo rosdep init
+  - rosdep update
+install:
+  # make a workspace and checkout the right repos:
+  - source /opt/ros/hydro/setup.bash
+  - mkdir -p ~/catkin_ws/src
+  - cd ~/catkin_ws/src
+  - catkin_init_workspace
+  - cd ..
+  - catkin_make
+  - cd ~/catkin_ws/src
+  - ln -s $CI_SOURCE_PATH . # link repo under test.
+before_script:
+  - source ~/catkin_ws/devel/setup.bash
+  - cd ~/catkin_ws/src
+script:
+  - cd ~/catkin_ws
+  - catkin_make
+>>>>>>> parent of ff6c959... 	modified:   .travis.yml
